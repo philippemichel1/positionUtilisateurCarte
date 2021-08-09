@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  PositionUtilisateur
+
+  Created by Philippe MICHEL on 09/08/2021.
+  
+*/
+
+"textField" = "Enter a city";
+"alert" = "the city field cannot be empty ";
+

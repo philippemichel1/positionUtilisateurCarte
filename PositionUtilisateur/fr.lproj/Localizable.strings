@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  PositionUtilisateur
+
+  Created by Philippe MICHEL on 09/08/2021.
+  
+*/
+
+"textField" = "Saisir une ville";
+"alert" = "le champs ville ne peut être vide";
+
