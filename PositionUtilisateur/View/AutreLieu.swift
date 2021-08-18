@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct AutreLieu: View {
-    @State var texteLieu:String = ""
+    @Binding var texteLieu:String
+    @Binding var lieuEstSaisi:Bool
     @State var montrerAlerte = false
-    @StateObject var carteMAJ:PositionUtilisateurVueModel = PositionUtilisateurVueModel()
     @Environment(\.presentationMode) var fermetureVue
     var body: some View {
         HStack {
@@ -19,11 +19,7 @@ struct AutreLieu: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     
                 Button(action: {
-                    
                     verifSaisie()
-                    // mise à jour de la carte
-                    carteMAJ.convertirAdresse(adresse: texteLieu)
-                    
                 }, label: {
                     Image(systemName: Ressources.image.validerLieu.rawValue)
                 })
@@ -39,9 +35,12 @@ struct AutreLieu: View {
         if texteLieu == "" {
             // Message alerte
             montrerAlerte = true
+            lieuEstSaisi = false
         } else {
-            montrerAlerte = false
             self.fermetureVue.wrappedValue.dismiss()
+            montrerAlerte = false
+            lieuEstSaisi = true
+            
         }
     }
 
@@ -50,6 +49,6 @@ struct AutreLieu: View {
 
 struct AutreLieu_Previews: PreviewProvider {
     static var previews: some View {
-        AutreLieu()
+        AutreLieu(texteLieu: .constant("mon lieu"), lieuEstSaisi: .constant(false))
     }
 }
