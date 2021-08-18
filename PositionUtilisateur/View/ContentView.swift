@@ -10,34 +10,54 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var maPosition:PositionUtilisateurVueModel = PositionUtilisateurVueModel()
     @StateObject var villePosition:VilleVueModel = VilleVueModel()
-    @State var montrerVueAutreLieu:Bool = false
+    //@State var montrerVueAutreLieu:Bool = false
+    @State var textAutreLieu:String = ""
+    @State var autreLieuSaisi:Bool = false
     
     var body: some View {
         if (maPosition.positionUtilisateur == nil) {
-            Text("Attente des données")
-                .padding()
+            HStack {
+                Text("loadData")
+                    .padding()
+            }
+            
         } else {
             NavigationView {
                 VStack {
                     Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)))
-                    //List {
-                    ScrollView {
-                        LazyVStack(spacing: 20) {
-                            //creation d'une liste de ville avec une boucle ForEach
-                            ForEach(villePosition.ville,id: \.id) {indexCmmune  in
-                                HStack {
-                                    Text("\(indexCmmune.nom)")
-                                    Text("\(indexCmmune.NBHabitants) Hab")
-                                    Button(action: {
-                                        maPosition.convertirAdresse(adresse: indexCmmune.nom)
-                                    }, label: {
-                                        Image(systemName: Ressources.image.visualiser.rawValue)
-                                    })
+                    if !autreLieuSaisi {
+                        ScrollView {
+                            LazyVStack(spacing: 20) {
+                                //creation d'une liste de ville avec une boucle ForEach
+                                ForEach(villePosition.ville,id: \.id) {indexCmmune  in
+                                    HStack {
+                                        Text("\(indexCmmune.nom)")
+                                        Text("\(indexCmmune.NBHabitants) Hab")
+                                        Button(action: {
+                                            maPosition.convertirAdresse(adresse: indexCmmune.nom)
+                                        }, label: {
+                                            Image(systemName: Ressources.image.visualiser.rawValue)
+                                        })
+                                    }
                                 }
                             }
                         }
+
+                    } else {
+                        // autre lieu choisit
+                        HStack {
+                            TextField("textField", text: $textAutreLieu)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            Button(action: {
+                                maPosition.convertirAdresse(adresse: textAutreLieu)
+                            }, label: {
+                                Image(systemName: Ressources.image.validerLieu.rawValue)
+                            })
+                        }
+                        
                     }
-                    //} fin de liste
+                    
+                    
                 }
                 .animation(.linear)
                 .navigationTitle(maPosition.positionUtilisateur!.ville)
@@ -48,19 +68,16 @@ struct ContentView: View {
                                 maPosition.montrerPosition = true
                                 // redemarre la localisation GPS
                                 maPosition.majPosition()
+                                self.autreLieuSaisi = false
                             }, label: {
                                 Image(systemName: Ressources.image.damarrerLocalisation.rawValue).foregroundColor(maPosition.montrerPosition ? .green : .red)
                             })
                             Button(action: {
-                                self.montrerVueAutreLieu.toggle()
+                               // self.montrerVueAutreLieu.toggle()
+                                self.autreLieuSaisi = true
                             }, label: {
                                 Image(systemName: Ressources.image.saisirLieux.rawValue)
                             })
-                            .sheet(isPresented: $montrerVueAutreLieu, content: {
-                                AutreLieu()
-                            })
-                            
-                            
                         }
                     }
                 }

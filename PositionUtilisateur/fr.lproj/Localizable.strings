@@ -8,4 +8,4 @@
 
 "textField" = "Saisir une ville";
 "alert" = "le champs ville ne peut être vide";
-
+"loadData" = "Attente des données";
