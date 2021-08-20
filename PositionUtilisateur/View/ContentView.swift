@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var maPosition:PositionUtilisateurVueModel = PositionUtilisateurVueModel()
     @StateObject var villePosition:VilleVueModel = VilleVueModel()
-    //@State var montrerVueAutreLieu:Bool = false
     @State var textAutreLieu:String = ""
     @State var autreLieuSaisi:Bool = false
     @State var montrerAlerte = false
@@ -50,6 +49,8 @@ struct ContentView: View {
                             TextField("textField", text: $textAutreLieu)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                             Button(action: {
+                                // rentre le clavier
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 verificationSaisie()
                     
                             }, label: {
