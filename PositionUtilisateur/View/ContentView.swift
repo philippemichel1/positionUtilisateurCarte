@@ -96,6 +96,7 @@ struct ContentView: View {
         } else {
             montrerAlerte = false
             maPosition.convertirAdresse(adresse: textAutreLieu)
+            self.textAutreLieu = ""
         }
     }
 }
