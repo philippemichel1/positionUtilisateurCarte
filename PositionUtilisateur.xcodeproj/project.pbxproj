@@ -12,7 +12,6 @@
 		37A6CE2626B5F05D000337CC /* Carte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A6CE2526B5F05D000337CC /* Carte.swift */; };
 		37AB7BB326B886B1009F1E89 /* Ressources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB7BB226B886B1009F1E89 /* Ressources.swift */; };
 		37B119CC26C1B98300ABA031 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B119CE26C1B98300ABA031 /* Localizable.strings */; };
-		37E9E35526C04BD900431324 /* AutreLieu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9E35426C04BD900431324 /* AutreLieu.swift */; };
 		37F7083F26AF486800F38E80 /* PositionUtilisateurApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F7083E26AF486800F38E80 /* PositionUtilisateurApp.swift */; };
 		37F7084126AF486800F38E80 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F7084026AF486800F38E80 /* ContentView.swift */; };
 		37F7084326AF486900F38E80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37F7084226AF486900F38E80 /* Assets.xcassets */; };
@@ -28,7 +27,6 @@
 		37AB7BB226B886B1009F1E89 /* Ressources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ressources.swift; sourceTree = "<group>"; };
 		37B119CD26C1B98300ABA031 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		37B119CF26C1B98E00ABA031 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		37E9E35426C04BD900431324 /* AutreLieu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutreLieu.swift; sourceTree = "<group>"; };
 		37F7083B26AF486800F38E80 /* PositionUtilisateur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PositionUtilisateur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37F7083E26AF486800F38E80 /* PositionUtilisateurApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionUtilisateurApp.swift; sourceTree = "<group>"; };
 		37F7084026AF486800F38E80 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 			isa = PBXGroup;
 			children = (
 				37F7084026AF486800F38E80 /* ContentView.swift */,
-				37E9E35426C04BD900431324 /* AutreLieu.swift */,
 				37A6CE2526B5F05D000337CC /* Carte.swift */,
 			);
 			path = View;
@@ -205,7 +202,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37E9E35526C04BD900431324 /* AutreLieu.swift in Sources */,
 				37F7084126AF486800F38E80 /* ContentView.swift in Sources */,
 				37F7083F26AF486800F38E80 /* PositionUtilisateurApp.swift in Sources */,
 				3731516526BEE52800860AA6 /* Ville.swift in Sources */,

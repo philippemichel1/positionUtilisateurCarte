@@ -13,6 +13,7 @@ struct ContentView: View {
     //@State var montrerVueAutreLieu:Bool = false
     @State var textAutreLieu:String = ""
     @State var autreLieuSaisi:Bool = false
+    @State var montrerAlerte = false
     
     var body: some View {
         if (maPosition.positionUtilisateur == nil) {
@@ -49,15 +50,16 @@ struct ContentView: View {
                             TextField("textField", text: $textAutreLieu)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                             Button(action: {
-                                maPosition.convertirAdresse(adresse: textAutreLieu)
+                                verificationSaisie()
+                    
                             }, label: {
                                 Image(systemName: Ressources.image.validerLieu.rawValue)
                             })
+                            .alert(isPresented: $montrerAlerte, content: {
+                                Alert(title: Text("alert"))
+                            })
                         }
-                        
                     }
-                    
-                    
                 }
                 .animation(.linear)
                 .navigationTitle(maPosition.positionUtilisateur!.ville)
@@ -84,6 +86,16 @@ struct ContentView: View {
             }
         }
         
+    }
+    //verification que le champs n'est pas vide
+    func verificationSaisie() {
+        if textAutreLieu == "" {
+            // Message alerte
+            montrerAlerte = true
+        } else {
+            montrerAlerte = false
+            maPosition.convertirAdresse(adresse: textAutreLieu)
+        }
     }
 }
 
