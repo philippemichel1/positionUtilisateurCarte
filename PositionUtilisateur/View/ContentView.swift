@@ -38,20 +38,20 @@ struct ContentView: View {
                                 Image(systemName: Ressources.image.figABC.rawValue)
                             })
                             .padding(5)
-                            .cornerRadius(5)
                             .background(Color.red)
+                            .cornerRadius(10)
                             .foregroundColor(.white)
                             Spacer()
                             Button(action: {
                                 // trie par habitant
-                                villePosition.TrierVilleNBHabitants()
+                                villePosition.TrierVilleNBHabitantsDesCroissant()
                                 
                             }, label: {
                                 Image(systemName: Ressources.image.figurine.rawValue)
                             })
                             .padding(5)
-                            .cornerRadius(5)
                             .background(Color.red)
+                            .cornerRadius(10)
                             .foregroundColor(.white)
                             Spacer()
                         }
