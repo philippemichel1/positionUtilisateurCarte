@@ -11,6 +11,7 @@ struct ContentView: View {
     @StateObject var maPosition:PositionUtilisateurVueModel = PositionUtilisateurVueModel()
     @StateObject var villePosition:VilleVueModel = VilleVueModel()
     @State var textAutreLieu:String = ""
+    @State var ChoixDeTri:Int = 1
     @State var autreLieuSaisi:Bool = false
     @State var montrerAlerte = false
     
@@ -26,6 +27,34 @@ struct ContentView: View {
                 VStack {
                     Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)))
                     if !autreLieuSaisi {
+                        HStack {
+                            //TrierListeVilles(selection: $ChoixDeTri)
+                            Spacer()
+                            Button(action: {
+                                // trie ordre alphabetique
+                                villePosition.TrierVilleOrdreAlpha()
+                                
+                            }, label: {
+                                Image(systemName: Ressources.image.figABC.rawValue)
+                            })
+                            .padding(5)
+                            .cornerRadius(5)
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            Spacer()
+                            Button(action: {
+                                // trie par habitant
+                                villePosition.TrierVilleNBHabitants()
+                                
+                            }, label: {
+                                Image(systemName: Ressources.image.figurine.rawValue)
+                            })
+                            .padding(5)
+                            .cornerRadius(5)
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            Spacer()
+                        }
                         ScrollView {
                             LazyVStack(spacing: 20) {
                                 //creation d'une liste de ville avec une boucle ForEach

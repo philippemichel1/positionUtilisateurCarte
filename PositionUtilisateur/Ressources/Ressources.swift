@@ -14,6 +14,8 @@ struct Ressources {
         case visualiser = "eye.fill"
         case validerLieu = "paperplane.fill"
         case saisirLieux = "pencil.tip.crop.circle.badge.plus"
+        case figurine = "figure.stand"
+        case figABC = "abc"
         
     }
 }
