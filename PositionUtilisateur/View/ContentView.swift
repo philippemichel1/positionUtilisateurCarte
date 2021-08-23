@@ -74,9 +74,14 @@ struct ContentView: View {
 
                     } else {
                         // autre lieu choisit
+                        VStack {
+                            Text("anotherPlace")
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                .padding(5)
+                        }
                         HStack {
-                            TextField("textField", text: $textAutreLieu)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            //appel du dormulaire de saisie autre ville
+                            AutreLieuSaisieTextField(autreLieu: $textAutreLieu)
                             Button(action: {
                                 // rentre le clavier
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -91,6 +96,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                // animation de la carte
                 .animation(.linear)
                 .navigationTitle(maPosition.positionUtilisateur!.ville)
                 .toolbar {
@@ -105,7 +111,6 @@ struct ContentView: View {
                                 Image(systemName: Ressources.image.damarrerLocalisation.rawValue).foregroundColor(maPosition.montrerPosition ? .green : .red)
                             })
                             Button(action: {
-                               // self.montrerVueAutreLieu.toggle()
                                 self.autreLieuSaisi = true
                             }, label: {
                                 Image(systemName: Ressources.image.saisirLieux.rawValue)
@@ -115,6 +120,7 @@ struct ContentView: View {
                 }
             }
             .onAppear{
+                // trie la liste par nombre habitants lors de l'affichage e la vue
                 villePosition.TrierVilleNBHabitantsDesCroissant()
             }
         }

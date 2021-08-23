@@ -9,3 +9,4 @@
 "textField" = "Enter a city";
 "alert" = "the city field cannot be empty ";
 "loadData" = "Waiting for data";
+"anotherPlace" = "other location";
