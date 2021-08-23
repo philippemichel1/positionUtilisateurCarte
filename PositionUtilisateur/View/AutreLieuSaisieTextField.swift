@@ -20,6 +20,7 @@ struct AutreLieuSaisieTextField: View {
 struct AutreLieuSaisieTextField_Previews: PreviewProvider {
     static var previews: some View {
         AutreLieuSaisieTextField(autreLieu: .constant("Dijon"))
+            .previewLayout(.sizeThatFits)
         
     }
 }

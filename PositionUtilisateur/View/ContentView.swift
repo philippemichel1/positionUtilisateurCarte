@@ -75,9 +75,7 @@ struct ContentView: View {
                     } else {
                         // autre lieu choisit
                         VStack {
-                            Text("anotherPlace")
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                                .padding(5)
+                            TitreFormAutreLieuText()
                         }
                         HStack {
                             //appel du dormulaire de saisie autre ville
