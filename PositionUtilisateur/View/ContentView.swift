@@ -114,6 +114,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .onAppear{
+                villePosition.TrierVilleNBHabitantsDesCroissant()
+            }
         }
         
     }

@@ -19,15 +19,6 @@ struct TrierListeVilles: View {
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
-            /*.onTapGesture {
-                if selection == 0 {
-                
-                print(selection)
-                
-                } else {
-                    print(selection)
-                }
-            }*/
         }
     }
     
