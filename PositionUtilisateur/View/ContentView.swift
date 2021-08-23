@@ -92,6 +92,7 @@ struct ContentView: View {
                                 Alert(title: Text("alert"))
                             })
                         }
+                        Spacer()
                     }
                 }
                 // animation de la carte
