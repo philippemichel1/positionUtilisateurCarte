@@ -14,7 +14,7 @@ struct Carte: View {
         HStack {
             Spacer()
             Map(coordinateRegion: $region)
-                .frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: 270, height: 270, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 
         }
     }

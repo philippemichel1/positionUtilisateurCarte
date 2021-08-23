@@ -12,8 +12,8 @@ struct TitreFormAutreLieuText: View {
     var body: some View {
         
         Text("anotherPlace")
-            .padding(10)
-            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+            .padding(5)
+            .font(.title3)
             .foregroundColor(.white)
             .background(Color.red)
             .cornerRadius(10)
