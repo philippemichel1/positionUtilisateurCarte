@@ -98,6 +98,7 @@ struct ContentView: View {
                 // animation de la carte
                 .animation(.linear)
                 .navigationTitle(maPosition.positionUtilisateur!.ville)
+                //Gestion de la barre d'état et des boutons de fonction
                 .toolbar {
                     ToolbarItem(placement: .bottomBar) {
                         HStack {
@@ -108,11 +109,13 @@ struct ContentView: View {
                                 self.autreLieuSaisi = false
                             }, label: {
                                 Image(systemName: Ressources.image.damarrerLocalisation.rawValue).foregroundColor(maPosition.montrerPosition ? .green : .red)
+                                    .imageScale(.large)
                             })
                             Button(action: {
                                 self.autreLieuSaisi = true
                             }, label: {
                                 Image(systemName: Ressources.image.saisirLieux.rawValue)
+                                .imageScale(.large)
                             })
                         }
                     }
