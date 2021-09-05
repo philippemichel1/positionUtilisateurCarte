@@ -13,6 +13,7 @@
 		379E991426D3CD5700468C8C /* TitreFormAutreLieuText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E991326D3CD5700468C8C /* TitreFormAutreLieuText.swift */; };
 		37A6CE2626B5F05D000337CC /* Carte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A6CE2526B5F05D000337CC /* Carte.swift */; };
 		37AB7BB326B886B1009F1E89 /* Ressources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB7BB226B886B1009F1E89 /* Ressources.swift */; };
+		37ACCE1826E41DE40032299F /* SelecteurTriListe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ACCE1726E41DE40032299F /* SelecteurTriListe.swift */; };
 		37B119CC26C1B98300ABA031 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B119CE26C1B98300ABA031 /* Localizable.strings */; };
 		37C66EA126D1A0EF0060EE2F /* TrierListeVilles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C66EA026D1A0EF0060EE2F /* TrierListeVilles.swift */; };
 		37F7083F26AF486800F38E80 /* PositionUtilisateurApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F7083E26AF486800F38E80 /* PositionUtilisateurApp.swift */; };
@@ -30,6 +31,7 @@
 		379E991326D3CD5700468C8C /* TitreFormAutreLieuText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitreFormAutreLieuText.swift; sourceTree = "<group>"; };
 		37A6CE2526B5F05D000337CC /* Carte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carte.swift; sourceTree = "<group>"; };
 		37AB7BB226B886B1009F1E89 /* Ressources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ressources.swift; sourceTree = "<group>"; };
+		37ACCE1726E41DE40032299F /* SelecteurTriListe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelecteurTriListe.swift; sourceTree = "<group>"; };
 		37B119CD26C1B98300ABA031 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		37B119CF26C1B98E00ABA031 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		37C66EA026D1A0EF0060EE2F /* TrierListeVilles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrierListeVilles.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				379E991326D3CD5700468C8C /* TitreFormAutreLieuText.swift */,
 				37A6CE2526B5F05D000337CC /* Carte.swift */,
 				37C66EA026D1A0EF0060EE2F /* TrierListeVilles.swift */,
+				37ACCE1726E41DE40032299F /* SelecteurTriListe.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			files = (
 				379E991226D3C77C00468C8C /* AutreLieuSaisieTextField.swift in Sources */,
 				379E991426D3CD5700468C8C /* TitreFormAutreLieuText.swift in Sources */,
+				37ACCE1826E41DE40032299F /* SelecteurTriListe.swift in Sources */,
 				37F7084126AF486800F38E80 /* ContentView.swift in Sources */,
 				37F7083F26AF486800F38E80 /* PositionUtilisateurApp.swift in Sources */,
 				3731516526BEE52800860AA6 /* Ville.swift in Sources */,

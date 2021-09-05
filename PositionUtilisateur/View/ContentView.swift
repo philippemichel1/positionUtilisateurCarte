@@ -11,9 +11,17 @@ struct ContentView: View {
     @StateObject var maPosition:PositionUtilisateurVueModel = PositionUtilisateurVueModel()
     @StateObject var villePosition:VilleVueModel = VilleVueModel()
     @State var textAutreLieu:String = ""
-    @State var ChoixDeTri:Int = 1
+    //@State var ordreTriAlphab:Bool = true
     @State var autreLieuSaisi:Bool = false
     @State var montrerAlerte = false
+    
+    //variable relative au selecteur de tri
+    @State var position:CGFloat = 0
+    @State var ordreTriAlpha:Bool = true
+    @State var largeur:CGFloat = 100
+    @State var hauteur:CGFloat = 25
+    @State var pactogramme:String = ""
+    
     
     var body: some View {
         if (maPosition.positionUtilisateur == nil) {
@@ -29,7 +37,7 @@ struct ContentView: View {
                     if !autreLieuSaisi {
                         HStack {
                             //TrierListeVilles(selection: $ChoixDeTri)
-                            Spacer()
+                           /* Spacer()
                             Button(action: {
                                 // trie ordre alphabetique
                                 villePosition.TrierVilleOrdreAlpha()
@@ -53,7 +61,39 @@ struct ContentView: View {
                             .background(Color.red)
                             .cornerRadius(10)
                             .foregroundColor(.white)
-                            Spacer()
+                            Spacer()*/
+                           
+                            //Création du selecteur de tri de la liste ville
+                            ZStack(alignment:.leading ) {
+                                HStack(spacing:0) {
+                                    //premier rectangle de base du selecteur
+                                    Rectangle()
+                                        .fill(Color.gray)
+                                        .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                        .onTapGesture {
+                                            changementSelection()
+                                        }
+                                    //deuxieme rectangle de base du selecteur
+                                    Rectangle()
+                                        .fill(Color.gray)
+                                        .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                        .onTapGesture {
+                                            changementSelection()
+                                        }
+
+                                }
+                                //rectangle de selection qui se déplace
+                                Rectangle()
+                                    .fill(Color.red)
+                                    .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                    .offset(CGSize(width: position, height: 0))
+                                //Spacer()
+                                    Image(systemName: pactogramme)
+                                        .foregroundColor(.white)
+                                        .offset(CGSize(width: position, height: 0))
+                            }
+                            
+                            // fin de code selecteur de tri
                         }
                         ScrollView {
                             LazyVStack(spacing: 20) {
@@ -101,18 +141,24 @@ struct ContentView: View {
                 //Gestion de la barre d'état et des boutons de fonction
                 .toolbar {
                     ToolbarItem(placement: .bottomBar) {
-                        HStack {
+                        HStack(spacing: 50) {
                             Button(action: {
-                                maPosition.montrerPosition = true
-                                // redemarre la localisation GPS
-                                maPosition.majPosition()
-                                self.autreLieuSaisi = false
+                                withAnimation {
+                                    maPosition.montrerPosition = true
+                                    // redemarre la localisation GPS
+                                    maPosition.majPosition()
+                                    self.autreLieuSaisi = false
+                                }
+                                
                             }, label: {
                                 Image(systemName: Ressources.image.damarrerLocalisation.rawValue).foregroundColor(maPosition.montrerPosition ? .green : .red)
                                     .imageScale(.large)
                             })
                             Button(action: {
-                                self.autreLieuSaisi = true
+                                withAnimation {
+                                    self.autreLieuSaisi = true
+                                }
+                                
                             }, label: {
                                 Image(systemName: Ressources.image.saisirLieux.rawValue)
                                 .imageScale(.large)
@@ -124,6 +170,7 @@ struct ContentView: View {
             .onAppear{
                 // trie la liste par nombre habitants lors de l'affichage e la vue
                 villePosition.TrierVilleNBHabitantsDesCroissant()
+                changementSelection()
             }
         }
         
@@ -137,6 +184,22 @@ struct ContentView: View {
             montrerAlerte = false
             maPosition.convertirAdresse(adresse: textAutreLieu)
             self.textAutreLieu = ""
+        }
+    }
+    
+    //fonction de changement de selection
+    func changementSelection() {
+        if !ordreTriAlpha {
+            position -= 100
+            pactogramme = Ressources.image.figABC.rawValue
+            villePosition.TrierVilleOrdreAlpha()
+            self.ordreTriAlpha.toggle()
+            
+        } else {
+            position += 100
+            pactogramme = Ressources.image.figurine.rawValue
+            villePosition.TrierVilleNBHabitantsDesCroissant()
+            self.ordreTriAlpha.toggle()
         }
     }
 }
