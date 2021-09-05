@@ -11,7 +11,7 @@ import SwiftUI
 struct PositionUtilisateurApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(pactogramme: "")
         }
     }
 }

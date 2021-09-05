@@ -20,7 +20,7 @@ struct ContentView: View {
     @State var ordreTriAlpha:Bool = true
     @State var largeur:CGFloat = 100
     @State var hauteur:CGFloat = 25
-    @State var pactogramme:String = ""
+    @State var pactogramme:String?
     
     
     var body: some View {
@@ -36,33 +36,6 @@ struct ContentView: View {
                     Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)))
                     if !autreLieuSaisi {
                         HStack {
-                            //TrierListeVilles(selection: $ChoixDeTri)
-                           /* Spacer()
-                            Button(action: {
-                                // trie ordre alphabetique
-                                villePosition.TrierVilleOrdreAlpha()
-                                
-                            }, label: {
-                                Image(systemName: Ressources.image.figABC.rawValue)
-                            })
-                            .padding(5)
-                            .background(Color.red)
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                            Spacer()
-                            Button(action: {
-                                // trie par habitant
-                                villePosition.TrierVilleNBHabitantsDesCroissant()
-                                
-                            }, label: {
-                                Image(systemName: Ressources.image.figurine.rawValue)
-                            })
-                            .padding(5)
-                            .background(Color.red)
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
-                            Spacer()*/
-                           
                             //Création du selecteur de tri de la liste ville
                             ZStack(alignment:.leading ) {
                                 HStack(spacing:0) {
@@ -72,6 +45,7 @@ struct ContentView: View {
                                         .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                         .onTapGesture {
                                             changementSelection()
+                                            
                                         }
                                     //deuxieme rectangle de base du selecteur
                                     Rectangle()
@@ -80,17 +54,17 @@ struct ContentView: View {
                                         .onTapGesture {
                                             changementSelection()
                                         }
-
+                                    
                                 }
                                 //rectangle de selection qui se déplace
                                 Rectangle()
                                     .fill(Color.red)
                                     .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                     .offset(CGSize(width: position, height: 0))
-                                //Spacer()
-                                    Image(systemName: pactogramme)
-                                        .foregroundColor(.white)
-                                        .offset(CGSize(width: position, height: 0))
+                                
+                                Image(systemName: pactogramme!)
+                                    .foregroundColor(.white)
+                                    .offset(CGSize(width: position + (largeur / 2), height: 0))
                             }
                             
                             // fin de code selecteur de tri
