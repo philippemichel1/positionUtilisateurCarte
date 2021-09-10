@@ -152,7 +152,9 @@ struct ContentView: View {
                                 .imageScale(.large)
                             })
                             Button(action: {
-                                withAnimation(.linear(duration: 0.5)) {
+                                // type animation pour la fenetre popupup
+                                withAnimation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.5))
+                                {
                                     self.montrerPopup.toggle()
                                 }
                                

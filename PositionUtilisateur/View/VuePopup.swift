@@ -32,7 +32,7 @@ struct VuePopup: View {
         
         }.background(Color.gray.opacity(0.8)
                 .cornerRadius(10)
-                .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.15), radius: 10, x: 1, y: 1))
+                .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.15), radius: 10, x: 3, y: -1))
     }
     
 }
