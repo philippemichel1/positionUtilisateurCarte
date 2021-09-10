@@ -16,6 +16,7 @@ struct Ressources {
         case saisirLieux = "pencil.tip.crop.circle.badge.plus"
         case figurine = "figure.stand"
         case figABC = "abc"
+        case logotitastus = "titastus"
         
     }
 }

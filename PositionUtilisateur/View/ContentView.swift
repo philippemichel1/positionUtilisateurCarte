@@ -14,6 +14,7 @@ struct ContentView: View {
     //@State var ordreTriAlphab:Bool = true
     @State var autreLieuSaisi:Bool = false
     @State var montrerAlerte = false
+    @State var montrerPopup:Bool = false
     
     //variable relative au selecteur de tri
     @State var position:CGFloat = 0
@@ -21,6 +22,13 @@ struct ContentView: View {
     @State var largeur:CGFloat = 100
     @State var hauteur:CGFloat = 25
     @State var pactogramme:String?
+    
+    //parametre pour la vue animée
+    let milieu = UIScreen.main.bounds.height / 2
+    let popupHauteur:CGFloat = 200
+    
+    
+
     
     
     var body: some View {
@@ -33,7 +41,16 @@ struct ContentView: View {
         } else {
             NavigationView {
                 VStack {
+                    ZStack {
                     Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)))
+                       //Vue animée "A propos de"
+                        VuePopup()
+                            .padding()
+                            .offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -milieu - popupHauteur)
+                       
+ 
+                        
+                    }
                     if !autreLieuSaisi {
                         HStack {
                             //Création du selecteur de tri de la liste ville
@@ -136,6 +153,15 @@ struct ContentView: View {
                             }, label: {
                                 Image(systemName: Ressources.image.saisirLieux.rawValue)
                                 .imageScale(.large)
+                            })
+                            Button(action: {
+                                withAnimation(.linear(duration: 0.5)) {
+                                    self.montrerPopup.toggle()
+                                }
+                               
+                                
+                            }, label: {
+                                Text("about")
                             })
                         }
                     }
