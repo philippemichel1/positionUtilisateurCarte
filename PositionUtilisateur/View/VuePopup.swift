@@ -31,12 +31,11 @@ struct VuePopup: View {
             }
         
         }.background(Color.gray.opacity(0.8)
-                .cornerRadius(20)
+                .cornerRadius(10)
                 .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/.opacity(0.15), radius: 10, x: 1, y: 1))
     }
     
 }
-
 
 struct VuePopup_Previews: PreviewProvider {
     static var previews: some View {

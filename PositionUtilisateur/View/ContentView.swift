@@ -28,9 +28,6 @@ struct ContentView: View {
     let popupHauteur:CGFloat = 200
     
     
-
-    
-    
     var body: some View {
         if (maPosition.positionUtilisateur == nil) {
             HStack {
