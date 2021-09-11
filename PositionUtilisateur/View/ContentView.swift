@@ -97,7 +97,7 @@ struct ContentView: View {
                                              villeSelectionne = indexCmmune.nom
                                         }, label: {
                                             Image(systemName: Ressources.image.visualiser.rawValue)
-                                                .foregroundColor(indexCmmune.nom == villeSelectionne ? .green : .red)
+                                                .foregroundColor(indexCmmune.nom == villeSelectionne ? Color("MonVert") : Color("MonRouge"))
                             
                                         })
                                     }
@@ -147,7 +147,7 @@ struct ContentView: View {
                             }, label: {
                                 Image(systemName: Ressources.image.damarrerLocalisation.rawValue)
                                     .imageScale(.large)
-                                    .foregroundColor(maPosition.montrerPosition ? .green : .red)
+                                    .foregroundColor(maPosition.montrerPosition ? Color("MonVert") : Color("MonRouge"))
                             })
                             Button(action: {
                                 withAnimation {
@@ -159,7 +159,7 @@ struct ContentView: View {
                             }, label: {
                                 Image(systemName: Ressources.image.saisirLieux.rawValue)
                                 .imageScale(.large)
-                                .foregroundColor(autreLieuSaisi ? .green : .red)
+                                .foregroundColor(autreLieuSaisi ? Color("MonVert") : Color("MonRouge"))
                             })
                             Button(action: {
                                 // type animation pour la fenetre popupup
@@ -171,7 +171,7 @@ struct ContentView: View {
                                 
                             }, label: {
                                 Text("about")
-                                    .foregroundColor(montrerPopup ? .green : .red)
+                                    .foregroundColor(montrerPopup ? Color("MonVert") : Color("MonRouge"))
                             })
                         }
                     }
