@@ -12,9 +12,9 @@ import MapKit
 
 class PositionUtilisateurVueModel:NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var positionUtilisateur: PositionUtilisateur?
+    @Published var montrerPosition:Bool = true
     private var manager = CLLocationManager()
     var statutLocalisation:CLAuthorizationStatus?
-    @Published var montrerPosition:Bool = true
     // initialisation de la viriable Géocoder
     private var geo = CLGeocoder()
     
@@ -30,6 +30,7 @@ class PositionUtilisateurVueModel:NSObject, ObservableObject, CLLocationManagerD
         //Maj des donnees tout les 1 km
         manager.distanceFilter = 1000
         majPosition()
+        
     }
     
     // autorisation de localisation
@@ -46,7 +47,7 @@ class PositionUtilisateurVueModel:NSObject, ObservableObject, CLLocationManagerD
     // mise à jour de la position
     func majPosition() {
         montrerPosition ? manager.startUpdatingLocation() : manager.stopUpdatingLocation()
-        togglePosition()
+        //togglePosition()
     }
     
     func togglePosition() {

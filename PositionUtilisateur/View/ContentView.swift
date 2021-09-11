@@ -94,6 +94,7 @@ struct ContentView: View {
                                             maPosition.convertirAdresse(adresse: indexCmmune.nom)
                                         }, label: {
                                             Image(systemName: Ressources.image.visualiser.rawValue)
+                            
                                         })
                                     }
                                 }
@@ -139,17 +140,20 @@ struct ContentView: View {
                                 }
                                 
                             }, label: {
-                                Image(systemName: Ressources.image.damarrerLocalisation.rawValue).foregroundColor(maPosition.montrerPosition ? .green : .red)
+                                Image(systemName: Ressources.image.damarrerLocalisation.rawValue)
                                     .imageScale(.large)
+                                    .foregroundColor(maPosition.montrerPosition ? .green : .red)
                             })
                             Button(action: {
                                 withAnimation {
                                     self.autreLieuSaisi = true
+                                    self.maPosition.montrerPosition = false
                                 }
                                 
                             }, label: {
                                 Image(systemName: Ressources.image.saisirLieux.rawValue)
                                 .imageScale(.large)
+                                .foregroundColor(autreLieuSaisi ? .green : .red)
                             })
                             Button(action: {
                                 // type animation pour la fenetre popupup
@@ -161,6 +165,7 @@ struct ContentView: View {
                                 
                             }, label: {
                                 Text("about")
+                                    .foregroundColor(montrerPopup ? .green : .red)
                             })
                         }
                     }
@@ -170,6 +175,7 @@ struct ContentView: View {
                 // trie la liste par nombre habitants lors de l'affichage e la vue
                 villePosition.TrierVilleNBHabitantsDesCroissant()
                 changementSelection()
+                print(maPosition.montrerPosition)
             }
         }
         
@@ -199,6 +205,7 @@ struct ContentView: View {
             pactogramme = Ressources.image.figurine.rawValue
             villePosition.TrierVilleNBHabitantsDesCroissant()
             self.ordreTriAlpha.toggle()
+            
         }
     }
 }
