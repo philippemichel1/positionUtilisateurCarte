@@ -22,10 +22,12 @@ struct ContentView: View {
     @State var largeur:CGFloat = 100
     @State var hauteur:CGFloat = 25
     @State var pactogramme:String?
+    @State var villeSelectionne: String = ""
     
     //parametre pour la vue animée
     let milieu = UIScreen.main.bounds.height / 2
     let popupHauteur:CGFloat = 200
+    
     
     
     var body: some View {
@@ -92,8 +94,10 @@ struct ContentView: View {
                                         Text("\(indexCmmune.NBHabitants) Hab")
                                         Button(action: {
                                             maPosition.convertirAdresse(adresse: indexCmmune.nom)
+                                             villeSelectionne = indexCmmune.nom
                                         }, label: {
                                             Image(systemName: Ressources.image.visualiser.rawValue)
+                                                .foregroundColor(indexCmmune.nom == villeSelectionne ? .green : .red)
                             
                                         })
                                     }
@@ -133,6 +137,7 @@ struct ContentView: View {
                         HStack(spacing: 50) {
                             Button(action: {
                                 withAnimation {
+                                    villeSelectionne = ""
                                     maPosition.montrerPosition = true
                                     // redemarre la localisation GPS
                                     maPosition.majPosition()
@@ -146,6 +151,7 @@ struct ContentView: View {
                             })
                             Button(action: {
                                 withAnimation {
+                                    villeSelectionne = ""
                                     self.autreLieuSaisi = true
                                     self.maPosition.montrerPosition = false
                                 }
