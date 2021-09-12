@@ -12,7 +12,7 @@ struct AutreLieuSaisieTextField: View {
     var body: some View {
         TextField("textField", text: $autreLieu)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .border(Color.red)
+            .border(Color("MonRouge"))
             .frame(width: 250, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
     }
 }

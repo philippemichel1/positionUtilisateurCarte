@@ -15,7 +15,7 @@ struct TitreFormAutreLieuText: View {
             .padding(5)
             .font(.title3)
             .foregroundColor(.white)
-            .background(Color.red)
+            .background(Color("MonRouge"))
             .cornerRadius(10)
     }
 }

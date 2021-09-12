@@ -74,7 +74,7 @@ struct ContentView: View {
                                 }
                                 //rectangle de selection qui se déplace
                                 Rectangle()
-                                    .fill(Color.red)
+                                    .fill(Color("MonRouge"))
                                     .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                     .offset(CGSize(width: position, height: 0))
                                 
