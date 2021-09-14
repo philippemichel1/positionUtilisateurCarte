@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var maPosition:PositionUtilisateurVueModel = PositionUtilisateurVueModel()
     @StateObject var villePosition:VilleVueModel = VilleVueModel()
+    @StateObject var valeurAleatoire:Aleatoire = Aleatoire()
+    
     @State var textAutreLieu:String = ""
     //@State var ordreTriAlphab:Bool = true
     @State var autreLieuSaisi:Bool = false
@@ -24,15 +26,30 @@ struct ContentView: View {
     @State var pactogramme:String?
     @State var villeSelectionne: String = ""
     
-    //parametre pour la vue animée
+    //parametre pour les vues animées
     let milieu = UIScreen.main.bounds.height / 2
     let popupHauteur:CGFloat = 200
     
-    
+    @State var capsuleLargeur:CGFloat = 15
+    @State var capsuleHauteur0:CGFloat = 100
+    @State var capsuleHauteur1:CGFloat = 100
+    @State var capsuleHauteur2:CGFloat = 100
+    @State var couleurCapsule:[Color] = [Color("MonRouge"),.gray, Color("MonVert")]
+    @State var timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
     
     var body: some View {
         if (maPosition.positionUtilisateur == nil) {
-            HStack {
+            HStack(spacing: 0) {
+                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur0, color: $couleurCapsule[0])
+                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur1, color: $couleurCapsule[1])
+                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur2, color: $couleurCapsule[2])
+            }.animation(.linear)
+            .onReceive(timer) { time in
+                capsuleHauteur0 = valeurAleatoire.hauteurAleatoire()
+                capsuleHauteur1 = valeurAleatoire.hauteurAleatoire()
+                capsuleHauteur2 = valeurAleatoire.hauteurAleatoire()
+            }
+            VStack {
                 Text("loadData")
                     .padding()
             }
@@ -120,6 +137,8 @@ struct ContentView: View {
                     
                             }, label: {
                                 Image(systemName: Ressources.image.validerLieu.rawValue)
+                                    .foregroundColor(textAutreLieu != "" ? Color("MonVert") : Color("MonRouge"))
+                
                             })
                             .alert(isPresented: $montrerAlerte, content: {
                                 Alert(title: Text("alert"))

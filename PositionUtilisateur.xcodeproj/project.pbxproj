@@ -11,6 +11,8 @@
 		3731516726BEEA6E00860AA6 /* VilleVueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3731516626BEEA6E00860AA6 /* VilleVueModel.swift */; };
 		3749632626E55F8700B8F8DF /* ControleurSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749632526E55F8700B8F8DF /* ControleurSafari.swift */; };
 		3749632826E560E900B8F8DF /* VuePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749632726E560E900B8F8DF /* VuePopup.swift */; };
+		3749D2EA26F12774007B31DA /* VueCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749D2E926F12774007B31DA /* VueCapsule.swift */; };
+		3749D2EC26F12988007B31DA /* Aleatoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749D2EB26F12988007B31DA /* Aleatoire.swift */; };
 		379E991226D3C77C00468C8C /* AutreLieuSaisieTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E991126D3C77C00468C8C /* AutreLieuSaisieTextField.swift */; };
 		379E991426D3CD5700468C8C /* TitreFormAutreLieuText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379E991326D3CD5700468C8C /* TitreFormAutreLieuText.swift */; };
 		37A6CE2626B5F05D000337CC /* Carte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A6CE2526B5F05D000337CC /* Carte.swift */; };
@@ -29,6 +31,8 @@
 		3731516626BEEA6E00860AA6 /* VilleVueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VilleVueModel.swift; sourceTree = "<group>"; };
 		3749632526E55F8700B8F8DF /* ControleurSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControleurSafari.swift; sourceTree = "<group>"; };
 		3749632726E560E900B8F8DF /* VuePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VuePopup.swift; sourceTree = "<group>"; };
+		3749D2E926F12774007B31DA /* VueCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VueCapsule.swift; sourceTree = "<group>"; };
+		3749D2EB26F12988007B31DA /* Aleatoire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aleatoire.swift; sourceTree = "<group>"; };
 		379E991126D3C77C00468C8C /* AutreLieuSaisieTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutreLieuSaisieTextField.swift; sourceTree = "<group>"; };
 		379E991326D3CD5700468C8C /* TitreFormAutreLieuText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitreFormAutreLieuText.swift; sourceTree = "<group>"; };
 		37A6CE2526B5F05D000337CC /* Carte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carte.swift; sourceTree = "<group>"; };
@@ -119,6 +123,7 @@
 				37F7084026AF486800F38E80 /* ContentView.swift */,
 				379E991126D3C77C00468C8C /* AutreLieuSaisieTextField.swift */,
 				379E991326D3CD5700468C8C /* TitreFormAutreLieuText.swift */,
+				3749D2E926F12774007B31DA /* VueCapsule.swift */,
 				37A6CE2526B5F05D000337CC /* Carte.swift */,
 				3749632726E560E900B8F8DF /* VuePopup.swift */,
 			);
@@ -130,6 +135,7 @@
 			children = (
 				37F7085326AF4B8700F38E80 /* PositionUtilisateurVueModel.swift */,
 				3731516626BEEA6E00860AA6 /* VilleVueModel.swift */,
+				3749D2EB26F12988007B31DA /* Aleatoire.swift */,
 				3749632526E55F8700B8F8DF /* ControleurSafari.swift */,
 			);
 			path = ViewModel;
@@ -214,11 +220,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3749D2EC26F12988007B31DA /* Aleatoire.swift in Sources */,
 				3749632626E55F8700B8F8DF /* ControleurSafari.swift in Sources */,
 				379E991226D3C77C00468C8C /* AutreLieuSaisieTextField.swift in Sources */,
 				379E991426D3CD5700468C8C /* TitreFormAutreLieuText.swift in Sources */,
 				37F7084126AF486800F38E80 /* ContentView.swift in Sources */,
 				37F7083F26AF486800F38E80 /* PositionUtilisateurApp.swift in Sources */,
+				3749D2EA26F12774007B31DA /* VueCapsule.swift in Sources */,
 				3749632826E560E900B8F8DF /* VuePopup.swift in Sources */,
 				3731516526BEE52800860AA6 /* Ville.swift in Sources */,
 				37F7085226AF4A6000F38E80 /* PositionUtilisateur.swift in Sources */,
