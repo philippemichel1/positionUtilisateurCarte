@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var maPosition:PositionUtilisateurVueModel = PositionUtilisateurVueModel()
-    @StateObject var villePosition:VilleVueModel = VilleVueModel()
+    @StateObject var connexionAPIVille:ConnexionAPI = ConnexionAPI()
     @StateObject var valeurAleatoire:Aleatoire = Aleatoire()
     
     @State var textAutreLieu:String = ""
@@ -30,12 +30,13 @@ struct ContentView: View {
     let milieu = UIScreen.main.bounds.height / 2
     let popupHauteur:CGFloat = 200
     
+    // paramétre pour animation capsule 
     @State var capsuleLargeur:CGFloat = 15
     @State var capsuleHauteur0:CGFloat = 100
     @State var capsuleHauteur1:CGFloat = 100
     @State var capsuleHauteur2:CGFloat = 100
     @State var couleurCapsule:[Color] = [Color("MonRouge"),.gray, Color("MonVert")]
-    @State var timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
+    @State var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         if (maPosition.positionUtilisateur == nil) {
@@ -43,29 +44,27 @@ struct ContentView: View {
                 VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur0, color: $couleurCapsule[0])
                 VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur1, color: $couleurCapsule[1])
                 VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur2, color: $couleurCapsule[2])
+                HStack {
+                    Text("loadData")
+                        .padding()
+                }
             }.animation(.linear)
             .onReceive(timer) { time in
                 capsuleHauteur0 = valeurAleatoire.hauteurAleatoire()
                 capsuleHauteur1 = valeurAleatoire.hauteurAleatoire()
                 capsuleHauteur2 = valeurAleatoire.hauteurAleatoire()
             }
-            VStack {
-                Text("loadData")
-                    .padding()
-            }
             
         } else {
             NavigationView {
                 VStack {
                     ZStack {
-                    Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)))
-                       //Vue animée "A propos de"
+                        Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)))
+                        //Vue animée "A propos de"
                         VuePopup()
                             .padding()
-                            .offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -milieu - popupHauteur)
-                       
- 
-                        
+                            //.offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -milieu - popupHauteur)
+                            .offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -UIScreen.main.bounds.height)
                     }
                     if !autreLieuSaisi {
                         HStack {
@@ -104,24 +103,23 @@ struct ContentView: View {
                         }
                         ScrollView {
                             LazyVStack(spacing: 20) {
-                                //creation d'une liste de ville avec une boucle ForEach
-                                ForEach(villePosition.ville,id: \.id) {indexCmmune  in
+                                //création d'une liste de ville
+                                ForEach(connexionAPIVille.listeVilles,id: \.name) {villeIndex  in
                                     HStack {
-                                        Text("\(indexCmmune.nom)")
-                                        Text("\(indexCmmune.NBHabitants) Hab")
+                                        Text("\(villeIndex.capital)")
+                                        Text("\(villeIndex.population) Hab")
                                         Button(action: {
-                                            maPosition.convertirAdresse(adresse: indexCmmune.nom)
-                                             villeSelectionne = indexCmmune.nom
+                                            maPosition.convertirAdresse(adresse: villeIndex.capital)
+                                            villeSelectionne = villeIndex.capital
                                         }, label: {
                                             Image(systemName: Ressources.image.visualiser.rawValue)
-                                                .foregroundColor(indexCmmune.nom == villeSelectionne ? Color("MonVert") : Color("MonRouge"))
-                            
+                                                .foregroundColor(villeIndex.capital == villeSelectionne ? Color("MonVert") : Color("MonRouge"))
+                                            
                                         })
                                     }
                                 }
                             }
                         }
-
                     } else {
                         // autre lieu choisit
                         VStack {
@@ -134,11 +132,11 @@ struct ContentView: View {
                                 // rentre le clavier
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 verificationSaisie()
-                    
+                                
                             }, label: {
                                 Image(systemName: Ressources.image.validerLieu.rawValue)
                                     .foregroundColor(textAutreLieu != "" ? Color("MonVert") : Color("MonRouge"))
-                
+                                
                             })
                             .alert(isPresented: $montrerAlerte, content: {
                                 Alert(title: Text("alert"))
@@ -177,8 +175,8 @@ struct ContentView: View {
                                 
                             }, label: {
                                 Image(systemName: Ressources.image.saisirLieux.rawValue)
-                                .imageScale(.large)
-                                .foregroundColor(autreLieuSaisi ? Color("MonVert") : Color("MonRouge"))
+                                    .imageScale(.large)
+                                    .foregroundColor(autreLieuSaisi ? Color("MonVert") : Color("MonRouge"))
                             })
                             Button(action: {
                                 // type animation pour la fenetre popupup
@@ -186,7 +184,7 @@ struct ContentView: View {
                                 {
                                     self.montrerPopup.toggle()
                                 }
-                               
+                                
                                 
                             }, label: {
                                 Text("about")
@@ -196,13 +194,17 @@ struct ContentView: View {
                     }
                 }
             }
-            .onAppear{
+            .onAppear {
+                //Téléchagement des donnée des villes
+                connexionAPIVille.startRequeteJSONDecoder()
                 // trie la liste par nombre habitants lors de l'affichage e la vue
-                villePosition.TrierVilleNBHabitantsDesCroissant()
+                connexionAPIVille.trierVilleNBHabitantsDesCroissant()
                 changementSelection()
                 print(maPosition.montrerPosition)
+                
             }
         }
+        
         
     }
     //verification que le champs n'est pas vide
@@ -222,17 +224,18 @@ struct ContentView: View {
         if !ordreTriAlpha {
             position -= 100
             pactogramme = Ressources.image.figABC.rawValue
-            villePosition.TrierVilleOrdreAlpha()
+            connexionAPIVille.trierVilleOrdreAlpha()
             self.ordreTriAlpha.toggle()
             
         } else {
             position += 100
             pactogramme = Ressources.image.figurine.rawValue
-            villePosition.TrierVilleNBHabitantsDesCroissant()
+            connexionAPIVille.trierVilleNBHabitantsDesCroissant()
             self.ordreTriAlpha.toggle()
             
         }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

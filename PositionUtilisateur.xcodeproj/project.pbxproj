@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3731516526BEE52800860AA6 /* Ville.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3731516426BEE52800860AA6 /* Ville.swift */; };
-		3731516726BEEA6E00860AA6 /* VilleVueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3731516626BEEA6E00860AA6 /* VilleVueModel.swift */; };
+		373220D126F7A45200704EEF /* ConnexionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373220D026F7A45200704EEF /* ConnexionAPI.swift */; };
+		373220D326F7A58E00704EEF /* DonneeDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373220D226F7A58E00704EEF /* DonneeDecodable.swift */; };
 		3749632626E55F8700B8F8DF /* ControleurSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749632526E55F8700B8F8DF /* ControleurSafari.swift */; };
 		3749632826E560E900B8F8DF /* VuePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749632726E560E900B8F8DF /* VuePopup.swift */; };
 		3749D2EA26F12774007B31DA /* VueCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749D2E926F12774007B31DA /* VueCapsule.swift */; };
@@ -27,8 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3731516426BEE52800860AA6 /* Ville.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ville.swift; sourceTree = "<group>"; };
-		3731516626BEEA6E00860AA6 /* VilleVueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VilleVueModel.swift; sourceTree = "<group>"; };
+		373220D026F7A45200704EEF /* ConnexionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionAPI.swift; sourceTree = "<group>"; };
+		373220D226F7A58E00704EEF /* DonneeDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonneeDecodable.swift; sourceTree = "<group>"; };
 		3749632526E55F8700B8F8DF /* ControleurSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControleurSafari.swift; sourceTree = "<group>"; };
 		3749632726E560E900B8F8DF /* VuePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VuePopup.swift; sourceTree = "<group>"; };
 		3749D2E926F12774007B31DA /* VueCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VueCapsule.swift; sourceTree = "<group>"; };
@@ -63,6 +63,7 @@
 		37F467B826BB1FD100578BB4 /* Connexion */ = {
 			isa = PBXGroup;
 			children = (
+				373220D026F7A45200704EEF /* ConnexionAPI.swift */,
 			);
 			path = Connexion;
 			sourceTree = "<group>";
@@ -112,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				37F7085126AF4A6000F38E80 /* PositionUtilisateur.swift */,
-				3731516426BEE52800860AA6 /* Ville.swift */,
+				373220D226F7A58E00704EEF /* DonneeDecodable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -134,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				37F7085326AF4B8700F38E80 /* PositionUtilisateurVueModel.swift */,
-				3731516626BEEA6E00860AA6 /* VilleVueModel.swift */,
 				3749D2EB26F12988007B31DA /* Aleatoire.swift */,
 				3749632526E55F8700B8F8DF /* ControleurSafari.swift */,
 			);
@@ -221,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3749D2EC26F12988007B31DA /* Aleatoire.swift in Sources */,
+				373220D126F7A45200704EEF /* ConnexionAPI.swift in Sources */,
 				3749632626E55F8700B8F8DF /* ControleurSafari.swift in Sources */,
 				379E991226D3C77C00468C8C /* AutreLieuSaisieTextField.swift in Sources */,
 				379E991426D3CD5700468C8C /* TitreFormAutreLieuText.swift in Sources */,
@@ -228,11 +229,10 @@
 				37F7083F26AF486800F38E80 /* PositionUtilisateurApp.swift in Sources */,
 				3749D2EA26F12774007B31DA /* VueCapsule.swift in Sources */,
 				3749632826E560E900B8F8DF /* VuePopup.swift in Sources */,
-				3731516526BEE52800860AA6 /* Ville.swift in Sources */,
 				37F7085226AF4A6000F38E80 /* PositionUtilisateur.swift in Sources */,
 				37AB7BB326B886B1009F1E89 /* Ressources.swift in Sources */,
+				373220D326F7A58E00704EEF /* DonneeDecodable.swift in Sources */,
 				37F7085426AF4B8700F38E80 /* PositionUtilisateurVueModel.swift in Sources */,
-				3731516726BEEA6E00860AA6 /* VilleVueModel.swift in Sources */,
 				37A6CE2626B5F05D000337CC /* Carte.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
