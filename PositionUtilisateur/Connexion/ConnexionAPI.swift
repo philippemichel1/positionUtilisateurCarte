@@ -8,6 +8,8 @@
 import Foundation
 class ConnexionAPI:ObservableObject {
     @Published var listeVilles:[ville] = []
+    @Published var telechargementVille = false
+    
     
     // execution de la connexion à URL
     func startRequeteJSONDecoder() {
@@ -27,9 +29,11 @@ class ConnexionAPI:ObservableObject {
                             // lecture des variable de la struct
                             // rrempli le tableau
                             self.listeVilles = resultat
+                            self.telechargementVille = true
                         }
                     } catch {
                         print(error.localizedDescription)
+                        self.telechargementVille = false
                     }
                 } // fin de verivication de données
             }.resume() // resultat de la requete

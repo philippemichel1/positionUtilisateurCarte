@@ -39,7 +39,7 @@ struct ContentView: View {
     @State var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        if (maPosition.positionUtilisateur == nil) {
+        if (maPosition.positionUtilisateur == nil) && (connexionAPIVille.telechargementVille) == false {
             HStack(spacing: 0) {
                 VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur0, color: $couleurCapsule[0])
                 VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur1, color: $couleurCapsule[1])
@@ -204,8 +204,6 @@ struct ContentView: View {
                 
             }
         }
-        
-        
     }
     //verification que le champs n'est pas vide
     func verificationSaisie() {
