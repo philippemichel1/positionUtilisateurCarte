@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3707D9F726FF9CEA00AC7EE2 /* SelecteurTriListe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707D9F626FF9CEA00AC7EE2 /* SelecteurTriListe.swift */; };
 		373220D126F7A45200704EEF /* ConnexionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373220D026F7A45200704EEF /* ConnexionAPI.swift */; };
 		373220D326F7A58E00704EEF /* DonneeDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373220D226F7A58E00704EEF /* DonneeDecodable.swift */; };
 		3749632626E55F8700B8F8DF /* ControleurSafari.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749632526E55F8700B8F8DF /* ControleurSafari.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3707D9F626FF9CEA00AC7EE2 /* SelecteurTriListe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelecteurTriListe.swift; sourceTree = "<group>"; };
 		373220D026F7A45200704EEF /* ConnexionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionAPI.swift; sourceTree = "<group>"; };
 		373220D226F7A58E00704EEF /* DonneeDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonneeDecodable.swift; sourceTree = "<group>"; };
 		3749632526E55F8700B8F8DF /* ControleurSafari.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControleurSafari.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				379E991326D3CD5700468C8C /* TitreFormAutreLieuText.swift */,
 				3749D2E926F12774007B31DA /* VueCapsule.swift */,
 				37A6CE2526B5F05D000337CC /* Carte.swift */,
+				3707D9F626FF9CEA00AC7EE2 /* SelecteurTriListe.swift */,
 				3749632726E560E900B8F8DF /* VuePopup.swift */,
 			);
 			path = View;
@@ -222,6 +225,7 @@
 			files = (
 				3749D2EC26F12988007B31DA /* Aleatoire.swift in Sources */,
 				373220D126F7A45200704EEF /* ConnexionAPI.swift in Sources */,
+				3707D9F726FF9CEA00AC7EE2 /* SelecteurTriListe.swift in Sources */,
 				3749632626E55F8700B8F8DF /* ControleurSafari.swift in Sources */,
 				379E991226D3C77C00468C8C /* AutreLieuSaisieTextField.swift in Sources */,
 				379E991426D3CD5700468C8C /* TitreFormAutreLieuText.swift in Sources */,

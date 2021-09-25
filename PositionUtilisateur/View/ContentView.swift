@@ -38,6 +38,9 @@ struct ContentView: View {
     @State var couleurCapsule:[Color] = [Color("MonRouge"),.gray, Color("MonVert")]
     @State var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
+    var pictogramme:[String] = ["abc", "figure.stand"]
+    @State  var selection:Int = 1
+    
     var body: some View {
         if (maPosition.positionUtilisateur == nil) && (connexionAPIVille.telechargementVille) == false {
             HStack(spacing: 0) {
@@ -67,39 +70,22 @@ struct ContentView: View {
                             .offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -UIScreen.main.bounds.height)
                     }
                     if !autreLieuSaisi {
+                        //Création du selecteur de tri de la liste ville
                         HStack {
-                            //Création du selecteur de tri de la liste ville
-                            ZStack(alignment:.leading ) {
-                                HStack(spacing:0) {
-                                    //premier rectangle de base du selecteur
-                                    Rectangle()
-                                        .fill(Color.gray)
-                                        .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                        .onTapGesture {
-                                            changementSelection()
-                                            
-                                        }
-                                    //deuxieme rectangle de base du selecteur
-                                    Rectangle()
-                                        .fill(Color.gray)
-                                        .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                        .onTapGesture {
-                                            changementSelection()
-                                        }
-                                    
+                            Picker("", selection: $selection) {
+                                ForEach(0..<pictogramme.count) {choix in
+                                    Image(systemName: pictogramme[choix])
                                 }
-                                //rectangle de selection qui se déplace
-                                Rectangle()
-                                    .fill(Color("MonRouge"))
-                                    .frame(width: largeur, height: hauteur, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                    .offset(CGSize(width: position, height: 0))
-                                
-                                Image(systemName: pactogramme!)
-                                    .foregroundColor(.white)
-                                    .offset(CGSize(width: position + (largeur / 2), height: 0))
+                                .onChange(of: selection) { ValeurChoisit in
+                                    if ValeurChoisit == 0 {
+                                        connexionAPIVille.trierVilleOrdreAlpha()
+                                        
+                                    } else {
+                                        connexionAPIVille.trierVilleNBHabitantsDesCroissant()
+                                    }
+                                }
                             }
-                            
-                            // fin de code selecteur de tri
+                            .pickerStyle(SegmentedPickerStyle())
                         }
                         ScrollView {
                             LazyVStack(spacing: 20) {
@@ -199,8 +185,8 @@ struct ContentView: View {
                 //Téléchagement des donnée des villes
                 connexionAPIVille.startRequeteJSONDecoder()
                 // trie la liste par nombre habitants lors de l'affichage e la vue
+                //changementSelection()
                 connexionAPIVille.trierVilleNBHabitantsDesCroissant()
-                changementSelection()
                 //print("Montrer ma position : \(maPosition.montrerPosition)")
                 //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
                 
@@ -216,23 +202,6 @@ struct ContentView: View {
             montrerAlerte = false
             maPosition.convertirAdresse(adresse: textAutreLieu)
             self.textAutreLieu = ""
-        }
-    }
-    
-    //fonction de changement de selection
-    func changementSelection() {
-        if !ordreTriAlpha {
-            position -= 100
-            pactogramme = Ressources.image.figABC.rawValue
-            connexionAPIVille.trierVilleOrdreAlpha()
-            self.ordreTriAlpha.toggle()
-            
-        } else {
-            position += 100
-            pactogramme = Ressources.image.figurine.rawValue
-            connexionAPIVille.trierVilleNBHabitantsDesCroissant()
-            self.ordreTriAlpha.toggle()
-            
         }
     }
     
