@@ -120,6 +120,7 @@ struct ContentView: View {
                                 }
                             }
                         }
+                        .frame(height: 210)
                     } else {
                         // autre lieu choisit
                         VStack {
