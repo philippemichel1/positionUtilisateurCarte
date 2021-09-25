@@ -7,13 +7,13 @@
 
 import Foundation
 class ConnexionAPI:ObservableObject {
-    @Published var listeVilles:[ville] = []
+    @Published var listeVilles:[communes] = []
     @Published var telechargementVille = false
     
     
     // execution de la connexion à URL
     func startRequeteJSONDecoder() {
-        let urlString = "https://restcountries.eu/rest/v2/region/europe"
+        let urlString = "https://geo.api.gouv.fr/communes"
         
         // verication que l'on à bien une url
         if let url = URL(string: urlString) {
@@ -23,7 +23,7 @@ class ConnexionAPI:ObservableObject {
                 if let mesDonnees = data {
                     do {
                         // essai de decoder le fichier struct
-                        let resultat = try JSONDecoder().decode([ville].self, from: mesDonnees)
+                        let resultat = try JSONDecoder().decode([communes].self, from: mesDonnees)
                         //print(resultat)
                         DispatchQueue.main.async { [self] in
                             // lecture des variable de la struct
@@ -42,12 +42,12 @@ class ConnexionAPI:ObservableObject {
     }
     //Trier element du tableau par ville par ordre alphabetique
     func trierVilleOrdreAlpha()  {
-        listeVilles.sort {$0.capital < $1.capital}
+        listeVilles.sort {$0.nom < $1.nom}
     }
     
     // trier les villes par nombre habitants descroissant
     func trierVilleNBHabitantsDesCroissant() {
-        listeVilles.sort {$0.population > $1.population}
+        listeVilles.sort {$0.population ?? 0 > $1.population ?? 0}
     }
     
 }

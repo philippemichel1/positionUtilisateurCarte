@@ -6,9 +6,10 @@
 //
 
 import Foundation
-struct ville:Decodable {
-    var name:String
-    var capital:String
-    var population: Int64
+struct communes:Decodable {
+    var nom:String
+    var code:String
+    //var codeRegion:String
+    var population:Int64?
 }
 

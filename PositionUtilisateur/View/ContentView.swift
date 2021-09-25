@@ -104,16 +104,16 @@ struct ContentView: View {
                         ScrollView {
                             LazyVStack(spacing: 20) {
                                 //création d'une liste de ville
-                                ForEach(connexionAPIVille.listeVilles,id: \.name) {villeIndex  in
+                                ForEach(connexionAPIVille.listeVilles,id: \.code) {villeIndex  in
                                     HStack {
-                                        Text("\(villeIndex.capital)")
-                                        Text("\(villeIndex.population) Hab")
+                                        Text("\(villeIndex.nom)")
+                                        Text("\(villeIndex.population ?? 0) Hab")
                                         Button(action: {
-                                            maPosition.convertirAdresse(adresse: villeIndex.capital)
-                                            villeSelectionne = villeIndex.capital
+                                            maPosition.convertirAdresse(adresse: villeIndex.nom)
+                                            villeSelectionne = villeIndex.nom
                                         }, label: {
                                             Image(systemName: Ressources.image.visualiser.rawValue)
-                                                .foregroundColor(villeIndex.capital == villeSelectionne ? Color("MonVert") : Color("MonRouge"))
+                                                .foregroundColor(villeIndex.nom == villeSelectionne ? Color("MonVert") : Color("MonRouge"))
                                             
                                         })
                                     }
@@ -200,7 +200,8 @@ struct ContentView: View {
                 // trie la liste par nombre habitants lors de l'affichage e la vue
                 connexionAPIVille.trierVilleNBHabitantsDesCroissant()
                 changementSelection()
-                print(maPosition.montrerPosition)
+                //print("Montrer ma position : \(maPosition.montrerPosition)")
+                //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
                 
             }
         }
