@@ -50,7 +50,6 @@ struct ContentView: View {
                         //Vue animée "A propos de"
                         VuePopup()
                             .padding()
-                        //.offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -milieu - popupHauteur)
                             .offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -UIScreen.main.bounds.height)
                     }
                     if !autreLieuSaisi {
@@ -169,7 +168,6 @@ struct ContentView: View {
                     }
                 }
             } // fin navigationView
-            
         } else {
             HStack(spacing: 0) {
                 VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur0, color: $couleurCapsule[0])
