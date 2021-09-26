@@ -43,7 +43,7 @@ class ConnexionAPI:ObservableObject {
     }
     //Trier element du tableau par ville par ordre alphabetique
     func trierVilleOrdreAlpha()  {
-        listeVilles.sort {$0.nom < $1.nom}
+       listeVilles.sort {$0.nom < $1.nom}
     }
     
     // trier les villes par nombre habitants descroissant
