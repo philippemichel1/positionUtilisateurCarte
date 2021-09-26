@@ -30,7 +30,7 @@ struct ContentView: View {
     let milieu = UIScreen.main.bounds.height / 2
     let popupHauteur:CGFloat = 200
     
-    // paramétre pour animation capsule 
+    // paramétre pour animation capsule
     @State var capsuleLargeur:CGFloat = 15
     @State var capsuleHauteur0:CGFloat = 100
     @State var capsuleHauteur1:CGFloat = 100
@@ -42,23 +42,7 @@ struct ContentView: View {
     @State  var selection:Int = 1
     
     var body: some View {
-        if (maPosition.positionUtilisateur == nil) && (connexionAPIVille.telechargementVille) == false {
-            HStack(spacing: 0) {
-                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur0, color: $couleurCapsule[0])
-                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur1, color: $couleurCapsule[1])
-                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur2, color: $couleurCapsule[2])
-                HStack {
-                    Text("loadData")
-                        .padding()
-                }
-            }.animation(.linear)
-            .onReceive(timer) { time in
-                capsuleHauteur0 = valeurAleatoire.hauteurAleatoire()
-                capsuleHauteur1 = valeurAleatoire.hauteurAleatoire()
-                capsuleHauteur2 = valeurAleatoire.hauteurAleatoire()
-            }
-            
-        } else {
+        if (maPosition.positionUtilisateur != nil) && (connexionAPIVille.telechargementVille) == true {
             NavigationView {
                 VStack {
                     ZStack {
@@ -66,7 +50,7 @@ struct ContentView: View {
                         //Vue animée "A propos de"
                         VuePopup()
                             .padding()
-                            //.offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -milieu - popupHauteur)
+                        //.offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -milieu - popupHauteur)
                             .offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -UIScreen.main.bounds.height)
                     }
                     if !autreLieuSaisi {
@@ -75,13 +59,17 @@ struct ContentView: View {
                             Picker("", selection: $selection) {
                                 ForEach(0..<pictogramme.count) {choix in
                                     Image(systemName: pictogramme[choix])
+                                    
+                                    
                                 }
                                 .onChange(of: selection) { ValeurChoisit in
                                     if ValeurChoisit == 0 {
                                         connexionAPIVille.trierVilleOrdreAlpha()
+                                        //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
                                         
                                     } else {
                                         connexionAPIVille.trierVilleNBHabitantsDesCroissant()
+                                        //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
                                     }
                                 }
                             }
@@ -125,9 +113,9 @@ struct ContentView: View {
                                     .foregroundColor(textAutreLieu != "" ? Color("MonVert") : Color("MonRouge"))
                                 
                             })
-                            .alert(isPresented: $montrerAlerte, content: {
-                                Alert(title: Text("alert"))
-                            })
+                                .alert(isPresented: $montrerAlerte, content: {
+                                    Alert(title: Text("alert"))
+                                })
                         }
                         Spacer()
                     }
@@ -180,19 +168,32 @@ struct ContentView: View {
                         }
                     }
                 }
+            } // fin navigationView
+            
+        } else {
+            HStack(spacing: 0) {
+                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur0, color: $couleurCapsule[0])
+                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur1, color: $couleurCapsule[1])
+                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur2, color: $couleurCapsule[2])
+                HStack {
+                    Text("loadData")
+                        .padding()
+                }
+            }
+            .animation(.linear)
+            .onReceive(timer) { time in
+                capsuleHauteur0 = valeurAleatoire.hauteurAleatoire()
+                capsuleHauteur1 = valeurAleatoire.hauteurAleatoire()
+                capsuleHauteur2 = valeurAleatoire.hauteurAleatoire()
             }
             .onAppear {
                 //Téléchagement des donnée des villes
                 connexionAPIVille.startRequeteJSONDecoder()
-                // trie la liste par nombre habitants lors de l'affichage e la vue
-                //changementSelection()
-                connexionAPIVille.trierVilleNBHabitantsDesCroissant()
-                //print("Montrer ma position : \(maPosition.montrerPosition)")
-                //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
-                
-            }
-        }
-    }
+                print("Montrer ma position : \(maPosition.montrerPosition)")
+            }// fin de onAppear
+        } // fin de if
+    } // fin de vue body
+    
     //verification que le champs n'est pas vide
     func verificationSaisie() {
         if textAutreLieu == "" {

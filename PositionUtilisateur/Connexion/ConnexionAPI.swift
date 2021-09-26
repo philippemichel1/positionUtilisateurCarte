@@ -29,6 +29,7 @@ class ConnexionAPI:ObservableObject {
                             // lecture des variable de la struct
                             // rrempli le tableau
                             self.listeVilles = resultat
+                            trierVilleNBHabitantsDesCroissant()
                             self.telechargementVille = true
                         }
                     } catch {
