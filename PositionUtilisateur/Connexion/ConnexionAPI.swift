@@ -12,7 +12,7 @@ class ConnexionAPI:ObservableObject {
     
     
     // execution de la connexion à URL
-    func startRequeteJSONDecoder() {
+    /*func startRequeteJSONDecoder() {
         let urlString = "https://geo.api.gouv.fr/communes"
         
         // verication que l'on à bien une url
@@ -40,7 +40,27 @@ class ConnexionAPI:ObservableObject {
             }.resume() // resultat de la requete
             
         } // url
+    }*/
+    //Nouvelle methode IOS 15 pour le téléchargement de donnée et les taches asynchrone
+    @available(iOS 15.0.0, *)
+    func startRequeteJSONDecoderBis() async {
+        // verification chaine de type url
+        guard let urlString = URL(string: "https://geo.api.gouv.fr/communes") else {return}
+        
+        do {
+            // connexion url session
+            let (mesDonnees, _) = try await URLSession.shared.data(from: urlString)
+            listeVilles = try JSONDecoder().decode([communes].self, from: mesDonnees)
+            trierVilleNBHabitantsDesCroissant()
+            self.telechargementVille = true
+            
+        } catch {
+            print(error.localizedDescription)
+            self.telechargementVille = false
+        }
     }
+   
+    
     //Trier element du tableau par ville par ordre alphabetique
     func trierVilleOrdreAlpha()  {
        listeVilles.sort {$0.nom < $1.nom}

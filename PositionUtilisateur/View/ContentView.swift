@@ -41,6 +41,7 @@ struct ContentView: View {
     var pictogramme:[String] = ["abc", "figure.stand"]
     @State  var selection:Int = 1
     
+    //@available(iOS 15.0, *)
     var body: some View {
         if (maPosition.positionUtilisateur != nil) && (connexionAPIVille.telechargementVille) == true {
             NavigationView {
@@ -169,25 +170,28 @@ struct ContentView: View {
                 }
             } // fin navigationView
         } else {
-            HStack(spacing: 0) {
-                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur0, color: $couleurCapsule[0])
-                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur1, color: $couleurCapsule[1])
-                VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur2, color: $couleurCapsule[2])
-                HStack {
-                    Text("loadData")
-                        .padding()
+            if #available(iOS 15.0, *) {
+                HStack(spacing: 0) {
+                    VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur0, color: $couleurCapsule[0])
+                    VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur1, color: $couleurCapsule[1])
+                    VueCapsule(largeur: $capsuleLargeur, hauteur: $capsuleHauteur2, color: $couleurCapsule[2])
+                    HStack {
+                        Text("loadData")
+                            .padding()
+                    }
                 }
-            }
-            .animation(.linear)
-            .onReceive(timer) { time in
-                capsuleHauteur0 = valeurAleatoire.hauteurAleatoire()
-                capsuleHauteur1 = valeurAleatoire.hauteurAleatoire()
-                capsuleHauteur2 = valeurAleatoire.hauteurAleatoire()
-            }
-            .onAppear {
-                //Téléchagement des donnée des villes
-                connexionAPIVille.startRequeteJSONDecoder()
-                print("Montrer ma position : \(maPosition.montrerPosition)")
+                .animation(.linear)
+                .onReceive(timer) { time in
+                    capsuleHauteur0 = valeurAleatoire.hauteurAleatoire()
+                    capsuleHauteur1 = valeurAleatoire.hauteurAleatoire()
+                    capsuleHauteur2 = valeurAleatoire.hauteurAleatoire()
+                }
+                // telecharche les donner à la maniere ios 15
+                .task {
+                    await connexionAPIVille.startRequeteJSONDecoderBis()
+                }
+            } else {
+                // Fallback on earlier versions
             }// fin de onAppear
         } // fin de if
     } // fin de vue body

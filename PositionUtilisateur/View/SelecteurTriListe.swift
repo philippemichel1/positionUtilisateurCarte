@@ -23,7 +23,7 @@ struct SelecteurTriListe: View {
                 .pickerStyle(SegmentedPickerStyle())
                 .onChange(of: selection) { ValeurChoisit in
                     if ValeurChoisit == 0 {
-                        triListe.startRequeteJSONDecoder()
+                        triListe.trierVilleNBHabitantsDesCroissant()
                         
                     } else {
                         triListe.trierVilleOrdreAlpha()
