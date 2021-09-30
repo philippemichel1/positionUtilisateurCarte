@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 class ConnexionAPI:ObservableObject {
     @Published var listeVilles:[communes] = []
     @Published var telechargementVille = false
     
-    
+    // connexion api pour ios 14
     // execution de la connexion à URL
     /*func startRequeteJSONDecoder() {
         let urlString = "https://geo.api.gouv.fr/communes"
