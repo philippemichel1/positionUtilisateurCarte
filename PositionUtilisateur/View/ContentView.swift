@@ -25,6 +25,8 @@ struct ContentView: View {
     @State var hauteur:CGFloat = 25
     @State var pactogramme:String?
     @State var villeSelectionne: String = ""
+    @State var filtreRecherche: String = ""
+    
     
     //parametre pour les vues animées
     let milieu = UIScreen.main.bounds.height / 2
@@ -45,128 +47,137 @@ struct ContentView: View {
     var body: some View {
         if (maPosition.positionUtilisateur != nil) && (connexionAPIVille.telechargementVille) == true {
             NavigationView {
-                VStack {
-                    ZStack {
-                        Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)))
-                        //Vue animée "A propos de"
-                        VuePopup()
-                            .padding()
-                            .offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -UIScreen.main.bounds.height)
-                    }
-                    if !autreLieuSaisi {
-                        //Création du selecteur de tri de la liste ville
-                        HStack {
-                            Picker("", selection: $selection) {
-                                ForEach(0..<pictogramme.count) {choix in
-                                    Image(systemName: pictogramme[choix])
-                                    
-                                    
-                                }
-                                .onChange(of: selection) { ValeurChoisit in
-                                    if ValeurChoisit == 0 {
-                                        connexionAPIVille.trierVilleOrdreAlpha()
-                                        //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
+                if #available(iOS 15.0, *) {
+                    VStack {
+                        ZStack {
+                            Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)))
+                            //Vue animée "A propos de"
+                            VuePopup()
+                                .padding()
+                                .offset(x: 0, y:  montrerPopup ? -popupHauteur + popupHauteur : -UIScreen.main.bounds.height)
+                        }
+                        if !autreLieuSaisi {
+                            //Création du selecteur de tri de la liste ville
+                            HStack {
+                                Picker("", selection: $selection) {
+                                    ForEach(0..<pictogramme.count) {choix in
+                                        Image(systemName: pictogramme[choix])
                                         
-                                    } else {
-                                        connexionAPIVille.trierVilleNBHabitantsDesCroissant()
-                                        //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
+                                        
                                     }
-                                }
-                            }
-                            .pickerStyle(SegmentedPickerStyle())
-                        }
-                        ScrollView {
-                            LazyVStack(spacing: 20) {
-                                //création d'une liste de ville
-                                ForEach(connexionAPIVille.listeVilles,id: \.code) {villeIndex  in
-                                    HStack {
-                                        Text("\(villeIndex.nom)")
-                                        Text("\(villeIndex.population ?? 0) Hab")
-                                        Button(action: {
-                                            maPosition.convertirAdresse(adresse: villeIndex.nom)
-                                            villeSelectionne = villeIndex.nom
-                                        }, label: {
-                                            Image(systemName: Ressources.image.visualiser.rawValue)
-                                                .foregroundColor(villeIndex.nom == villeSelectionne ? Color("MonVert") : Color("MonRouge"))
+                                    .onChange(of: selection) { ValeurChoisit in
+                                        if ValeurChoisit == 0 {
+                                            connexionAPIVille.trierVilleOrdreAlpha()
+                                            //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
                                             
-                                        })
+                                        } else {
+                                            connexionAPIVille.trierVilleNBHabitantsDesCroissant()
+                                            //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
+                                        }
+                                    }
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
+                            }
+                            ScrollView {
+                                LazyVStack(spacing: 20) {
+                                    //création d'une liste de ville
+                                    ForEach(connexionAPIVille.listeVilles,id: \.code) {villeIndex  in
+                                        if filtreRecherche.isEmpty || villeIndex.nom.contains(filtreRecherche) || villeIndex.nom.lowercased().contains(filtreRecherche) {
+                                            HStack {
+                                                Text("\(villeIndex.nom)")
+                                                Text("\(villeIndex.population ?? 0) Hab")
+                                                Button(action: {
+                                                    maPosition.convertirAdresse(adresse: villeIndex.nom)
+                                                    villeSelectionne = villeIndex.nom
+                                                }, label: {
+                                                    Image(systemName: Ressources.image.visualiser.rawValue)
+                                                        .foregroundColor(villeIndex.nom == villeSelectionne ? Color("MonVert") : Color("MonRouge"))
+                                                    
+                                                })
+                                            }
+                                        }
+                                        
                                     }
                                 }
                             }
-                        }
-                        .frame(height: 210)
-                    } else {
-                        // autre lieu choisit
-                        VStack {
-                            TitreFormAutreLieuText()
-                        }
-                        HStack {
-                            //appel du dormulaire de saisie autre ville
-                            AutreLieuSaisieTextField(autreLieu: $textAutreLieu)
-                            Button(action: {
-                                // rentre le clavier
-                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                verificationSaisie()
-                                
-                            }, label: {
-                                Image(systemName: Ressources.image.validerLieu.rawValue)
-                                    .foregroundColor(textAutreLieu != "" ? Color("MonVert") : Color("MonRouge"))
-                                
-                            })
-                                .alert(isPresented: $montrerAlerte, content: {
-                                    Alert(title: Text("alert"))
+                            .frame(height: 210)
+                        } else {
+                            // autre lieu choisit
+                            VStack {
+                                TitreFormAutreLieuText()
+                            }
+                            HStack {
+                                //appel du dormulaire de saisie autre ville
+                                AutreLieuSaisieTextField(autreLieu: $textAutreLieu)
+                                Button(action: {
+                                    // rentre le clavier
+                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                    verificationSaisie()
+                                    
+                                }, label: {
+                                    Image(systemName: Ressources.image.validerLieu.rawValue)
+                                        .foregroundColor(textAutreLieu != "" ? Color("MonVert") : Color("MonRouge"))
+                                    
                                 })
-                        }
-                        Spacer()
-                    }
-                }
-                // animation de la carte
-                .animation(.linear)
-                .navigationTitle(maPosition.positionUtilisateur!.ville)
-                //Gestion de la barre d'état et des boutons de fonction
-                .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
-                        HStack(spacing: 50) {
-                            Button(action: {
-                                withAnimation {
-                                    villeSelectionne = ""
-                                    maPosition.montrerPosition = true
-                                    // redemarre la localisation GPS
-                                    maPosition.majPosition()
-                                    self.autreLieuSaisi = false
-                                }
-                                
-                            }, label: {
-                                Image(systemName: Ressources.image.damarrerLocalisation.rawValue)
-                                    .imageScale(.large)
-                                    .foregroundColor(maPosition.montrerPosition ? Color("MonVert") : Color("MonRouge"))
-                            })
-                            Button(action: {
-                                withAnimation {
-                                    villeSelectionne = ""
-                                    self.autreLieuSaisi = true
-                                    self.maPosition.montrerPosition = false
-                                }
-                                
-                            }, label: {
-                                Image(systemName: Ressources.image.saisirLieux.rawValue)
-                                    .imageScale(.large)
-                                    .foregroundColor(autreLieuSaisi ? Color("MonVert") : Color("MonRouge"))
-                            })
-                            Button(action: {
-                                // type animation pour la fenetre popupup
-                                withAnimation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.5))
-                                {
-                                    self.montrerPopup.toggle()
-                                }
-                                
-                                
-                            }, label: {
-                                Text("about")
-                                    .foregroundColor(montrerPopup ? Color("MonVert") : Color("MonRouge"))
-                            })
+                                    .alert(isPresented: $montrerAlerte, content: {
+                                        Alert(title: Text("alert"))
+                                    })
+                            }
+                            Spacer()
                         }
                     }
+                    // animation de la carte
+                    .animation(.linear)
+                    .navigationTitle(maPosition.positionUtilisateur!.ville)
+                    //Gestion de la barre d'état et des boutons de fonction
+                    .toolbar {
+                        ToolbarItem(placement: .bottomBar) {
+                            HStack(spacing: 50) {
+                                Button(action: {
+                                    withAnimation {
+                                        villeSelectionne = ""
+                                        maPosition.montrerPosition = true
+                                        // redemarre la localisation GPS
+                                        maPosition.majPosition()
+                                        self.autreLieuSaisi = false
+                                    }
+                                    
+                                }, label: {
+                                    Image(systemName: Ressources.image.damarrerLocalisation.rawValue)
+                                        .imageScale(.large)
+                                        .foregroundColor(maPosition.montrerPosition ? Color("MonVert") : Color("MonRouge"))
+                                })
+                                Button(action: {
+                                    withAnimation {
+                                        villeSelectionne = ""
+                                        self.autreLieuSaisi = true
+                                        self.maPosition.montrerPosition = false
+                                    }
+                                    
+                                }, label: {
+                                    Image(systemName: Ressources.image.saisirLieux.rawValue)
+                                        .imageScale(.large)
+                                        .foregroundColor(autreLieuSaisi ? Color("MonVert") : Color("MonRouge"))
+                                })
+                                Button(action: {
+                                    // type animation pour la fenetre popupup
+                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0.5))
+                                    {
+                                        self.montrerPopup.toggle()
+                                    }
+                                    
+                                    
+                                }, label: {
+                                    Text("about")
+                                        .foregroundColor(montrerPopup ? Color("MonVert") : Color("MonRouge"))
+                                })
+                            }
+                        }
+                    }
+                    // vue rechercher pour la liste de ville
+                    .searchable(text: $filtreRecherche)
+                } else {
+                    // Fallback on earlier versions
                 }
             } // fin navigationView
         } else {

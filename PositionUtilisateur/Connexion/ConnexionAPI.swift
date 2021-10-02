@@ -53,7 +53,7 @@ class ConnexionAPI:ObservableObject {
             let (mesDonnees, _) = try await URLSession.shared.data(from: urlString)
             listeVilles = try JSONDecoder().decode([communes].self, from: mesDonnees)
             trierVilleNBHabitantsDesCroissant()
-            self.telechargementVille = true
+            telechargementVille = true
             
         } catch {
             print(error.localizedDescription)
