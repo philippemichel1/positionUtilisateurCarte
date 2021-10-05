@@ -71,11 +71,8 @@ struct ContentView: View {
                                         .onChange(of: selection) { ValeurChoisit in
                                             if ValeurChoisit == 0 {
                                                 connexionAPIVille.trierVilleOrdreAlpha()
-                                                //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
-                                                
                                             } else {
                                                 connexionAPIVille.trierVilleNBHabitantsDesCroissant()
-                                                //print("téléchargement de données : \(connexionAPIVille.telechargementVille)")
                                             }
                                         }
                                     }
@@ -90,6 +87,9 @@ struct ContentView: View {
                                                     Text("\(villeIndex.nom)")
                                                     Text("\(villeIndex.population ?? 0) Hab")
                                                     Button(action: {
+                                                        if clavierAfficher {
+                                                            rentrerClavier()
+                                                        }
                                                         maPosition.convertirAdresse(adresse: villeIndex.nom)
                                                         villeSelectionne = villeIndex.nom
                                                     }, label: {
@@ -115,7 +115,7 @@ struct ContentView: View {
                                     AutreLieuSaisieTextField(autreLieu: $textAutreLieu)
                                     Button(action: {
                                         // rentre le clavier
-                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                        rentrerClavier()
                                         verificationSaisie()
                                         
                                     }, label: {
@@ -239,6 +239,10 @@ struct ContentView: View {
             maPosition.convertirAdresse(adresse: textAutreLieu)
             self.textAutreLieu = ""
         }
+    }
+    // rentre le clavier
+    func rentrerClavier() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
 }
