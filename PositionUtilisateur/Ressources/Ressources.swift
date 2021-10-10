@@ -17,6 +17,7 @@ struct Ressources {
         case figurine = "figure.stand"
         case figABC = "abc"
         case logotitastus = "titastus"
+        case loupe = "magnifyingglass.circle"
         
     }
 }

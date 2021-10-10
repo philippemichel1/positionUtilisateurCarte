@@ -12,12 +12,12 @@ struct ContentView: View {
     @StateObject var valeurAleatoire:Aleatoire = Aleatoire()
     
     @State var textAutreLieu:String = ""
-    //@State var ordreTriAlphab:Bool = true
     @State var autreLieuSaisi:Bool = false
     @State var montrerAlerte = false
     @State var montrerFiltreRecherche = true
     @State var montrerPopup:Bool = false
     @State var clavierAfficher:Bool = false
+    
     
     //variable relative au selecteur de tri
     @State var position:CGFloat = 0
@@ -54,6 +54,9 @@ struct ContentView: View {
                         VStack {
                             ZStack {
                                 Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)), clavierVisible: $clavierAfficher)
+                            
+                            
+                                
                                 //Vue animée "A propos de"
                                 VuePopup()
                                     .padding()
@@ -133,11 +136,12 @@ struct ContentView: View {
                         // clavier affiché
                         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in
                             self.clavierAfficher = true
-
+                            
                             
                             //clavier non afficher
                         }.onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
                             self.clavierAfficher = false
+                           
                         }
                         
                         
@@ -192,7 +196,9 @@ struct ContentView: View {
                             }
                         }
                         // vue rechercher pour la liste de ville
+
                         .searchable(text: $filtreRecherche)
+                        
                     } else {
                         // Fallback on earlier versions
                     }
