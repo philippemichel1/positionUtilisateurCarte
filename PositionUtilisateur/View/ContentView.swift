@@ -54,8 +54,8 @@ struct ContentView: View {
                         VStack {
                             ZStack {
                                 Carte(region: .constant(maPosition.donneeAffichageCarte(position: maPosition.positionUtilisateur!)), clavierVisible: $clavierAfficher)
-                            
-                            
+                                
+                                
                                 
                                 //Vue animée "A propos de"
                                 VuePopup()
@@ -68,15 +68,15 @@ struct ContentView: View {
                                     Picker("", selection: $selection) {
                                         ForEach(0..<pictogramme.count) {choix in
                                             Image(systemName: pictogramme[choix])
+                                                .onChange(of: selection) { ValeurChoisit in
+                                                    if ValeurChoisit == 0 {
+                                                        connexionAPIVille.trierVilleOrdreAlpha()
+                                                    } else {
+                                                        connexionAPIVille.trierVilleNBHabitantsDesCroissant()
+                                                    }
+                                                    
+                                                }
                                             
-                                            
-                                        }
-                                        .onChange(of: selection) { ValeurChoisit in
-                                            if ValeurChoisit == 0 {
-                                                connexionAPIVille.trierVilleOrdreAlpha()
-                                            } else {
-                                                connexionAPIVille.trierVilleNBHabitantsDesCroissant()
-                                            }
                                         }
                                     }
                                     .pickerStyle(SegmentedPickerStyle())
@@ -141,7 +141,7 @@ struct ContentView: View {
                             //clavier non afficher
                         }.onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in
                             self.clavierAfficher = false
-                           
+                            
                         }
                         
                         
@@ -196,7 +196,7 @@ struct ContentView: View {
                             }
                         }
                         // vue rechercher pour la liste de ville
-
+                        
                         .searchable(text: $filtreRecherche)
                         
                     } else {
