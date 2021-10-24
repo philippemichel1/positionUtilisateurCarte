@@ -9,7 +9,6 @@ import Foundation
 struct communes:Decodable {
     var nom:String
     var code:String
-    //var codeRegion:String
     var population:Int64?
 }
 

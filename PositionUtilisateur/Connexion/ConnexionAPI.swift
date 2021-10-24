@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 class ConnexionAPI:ObservableObject {
-     @Published var listeVilles:[communes] = []
+    @Published var listeVilles:[communes] = []
      @Published var telechargementVille = false
 
     //Nouvelle methode IOS 15 pour le téléchargement de donnée et les taches asynchrone
@@ -22,7 +22,7 @@ class ConnexionAPI:ObservableObject {
             let (mesDonnees, _) = try await URLSession.shared.data(from: urlString)
             listeVilles = try JSONDecoder().decode([communes].self, from: mesDonnees)
             trierVilleNBHabitantsDesCroissant()
-            telechargementVille = true
+            self.telechargementVille = true
             
         } catch {
             print(error.localizedDescription)
