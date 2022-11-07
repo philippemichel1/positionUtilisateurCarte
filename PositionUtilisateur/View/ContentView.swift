@@ -227,7 +227,7 @@ struct ContentView: View {
                 .task {
                     await connexionAPIVille.startRequeteJSONDecoderBis()
                 }
-                
+        
             } else {
                 // Fallback on earlier versions
             }// fin de onAppear

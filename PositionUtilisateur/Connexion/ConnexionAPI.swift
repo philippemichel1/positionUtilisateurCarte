@@ -7,13 +7,14 @@
 
 import Foundation
 import SwiftUI
+@MainActor
 class ConnexionAPI:ObservableObject {
     @Published var listeVilles:[communes] = []
      @Published var telechargementVille = false
 
     //Nouvelle methode IOS 15 pour le téléchargement de donnée et les taches asynchrone
     @available(iOS 15.0.0, *)
-    func startRequeteJSONDecoderBis() async {
+    func startRequeteJSONDecoderBis() async  {
         // verification chaine de type url
         guard let urlString = URL(string: "https://geo.api.gouv.fr/communes") else {return}
         
